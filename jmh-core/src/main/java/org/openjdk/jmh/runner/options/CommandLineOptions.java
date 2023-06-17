@@ -28,6 +28,7 @@ import joptsimple.*;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.profile.ProfilerFactory;
 import org.openjdk.jmh.results.format.ResultFormatType;
+import org.openjdk.jmh.runner.CpuPinIterator;
 import org.openjdk.jmh.runner.Defaults;
 import org.openjdk.jmh.util.HashMultimap;
 import org.openjdk.jmh.util.Multimap;
@@ -52,6 +53,7 @@ public class CommandLineOptions implements Options {
     private final Optional<TimeValue> warmupTime;
     private final Optional<Integer> warmupBatchSize;
     private final List<Mode> benchMode = new ArrayList<>();
+    private final List<Integer> cpus = new ArrayList<>();
     private final Optional<Integer> threads;
     private final List<Integer> threadGroups = new ArrayList<>();
     private final Optional<Boolean> synchIterations;
@@ -134,6 +136,10 @@ public class CommandLineOptions implements Options {
                 "maximum number of hardware threads available on the machine, figured out by JMH itself. " +
                 "(default: " + Defaults.THREADS + ")")
                 .withRequiredArg().withValuesConvertedBy(ThreadsValueConverter.INSTANCE).describedAs("int");
+
+        OptionSpec<Integer> optCpuPins = parser.accepts("cpus", "Ids of CPU to use to pin threads to (in order)" +
+                "(default: " + Defaults.THREADS + ")")
+                .withRequiredArg().withValuesConvertedBy(ThreadsValueConverter.INSTANCE).describedAs("int+");
 
         OptionSpec<String> optBenchmarkMode = parser.accepts("bm", "Benchmark mode. Available modes are: " + Mode.getKnown() + ". " +
                 "(default: " + Defaults.BENCHMARK_MODE + ")")
@@ -372,6 +378,10 @@ public class CommandLineOptions implements Options {
                 }
             }
 
+            if (set.has(optCpuPins)) {
+                cpus.addAll(set.valuesOf(optCpuPins));
+            }
+
             if (set.has(optThreadGroups)) {
                 threadGroups.addAll(set.valuesOf(optThreadGroups));
                 int total = 0;
@@ -596,6 +606,19 @@ public class CommandLineOptions implements Options {
     @Override
     public Optional<Integer> getWarmupBatchSize() {
         return warmupBatchSize;
+    }
+
+    @Override
+    public Optional<int[]> getCpus() {
+        if (cpus.isEmpty()) {
+            return Optional.of(CpuPinIterator.NO_PINS);
+        } else {
+            final int[] r = new int[cpus.size()];
+            for (int c = 0; c < r.length; c++) {
+                r[c] = cpus.get(c);
+            }
+            return Optional.of(r);
+        }
     }
 
     @Override

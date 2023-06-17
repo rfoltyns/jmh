@@ -44,6 +44,7 @@ public class TestBenchmarkListSorting {
                 generatedClassQName,
                 method,
                 mode,
+                CpuPinIterator.NO_PINS,
                 Optional.<Integer>none(),
                 new int[]{1},
                 Optional.<Collection<String>>none(),

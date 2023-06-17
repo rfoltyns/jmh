@@ -81,7 +81,7 @@ class BenchmarkHandler {
 
         this.out = out;
         try {
-            executor = EXECUTOR_TYPE.createExecutor(executionParams.getThreads(), executionParams.getBenchmark());
+            executor = EXECUTOR_TYPE.createExecutor(executionParams.getThreads(), executionParams.getBenchmark(), CpuPinIterator.from(executionParams.getCpus()));
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -179,8 +179,8 @@ class BenchmarkHandler {
          */
         CACHED_TPE {
             @Override
-            ExecutorService createExecutor(int maxThreads, String prefix) {
-                return Executors.newCachedThreadPool(new WorkerThreadFactory(prefix));
+            ExecutorService createExecutor(int maxThreads, String prefix, CpuPinIterator cpus) {
+                return Executors.newCachedThreadPool(PinnedFactorySelector.pinnedOrDefault(cpus, prefix, new WorkerThreadFactory(prefix)));
             }
         },
 
@@ -189,8 +189,8 @@ class BenchmarkHandler {
          */
         FIXED_TPE {
             @Override
-            ExecutorService createExecutor(int maxThreads, String prefix) {
-                return Executors.newFixedThreadPool(maxThreads, new WorkerThreadFactory(prefix));
+            ExecutorService createExecutor(int maxThreads, String prefix, CpuPinIterator cpus) {
+                return Executors.newFixedThreadPool(maxThreads, PinnedFactorySelector.pinnedOrDefault(cpus, prefix, new WorkerThreadFactory(prefix)));
             }
         },
 
@@ -199,7 +199,7 @@ class BenchmarkHandler {
          */
         FJP {
             @Override
-            ExecutorService createExecutor(int maxThreads, String prefix) {
+            ExecutorService createExecutor(int maxThreads, String prefix, CpuPinIterator cpus) {
                 return new ForkJoinPool(maxThreads);
             }
         },
@@ -209,7 +209,7 @@ class BenchmarkHandler {
          */
         FJP_COMMON {
             @Override
-            ExecutorService createExecutor(int maxThreads, String prefix) throws Exception {
+            ExecutorService createExecutor(int maxThreads, String prefix, CpuPinIterator cpus) throws Exception {
                 // (Aleksey):
                 // requires some of the reflection magic to untie from JDK 8 compile-time dependencies
                 Method m = Class.forName("java.util.concurrent.ForkJoinPool").getMethod("commonPool");
@@ -226,7 +226,7 @@ class BenchmarkHandler {
 
         CUSTOM {
             @Override
-            ExecutorService createExecutor(int maxThreads, String prefix) throws Exception {
+            ExecutorService createExecutor(int maxThreads, String prefix, CpuPinIterator cpus) throws Exception {
                 String className = System.getProperty("jmh.executor.class");
                 return (ExecutorService) Class.forName(className).getConstructor(int.class, String.class)
                         .newInstance(maxThreads, prefix);
@@ -235,7 +235,7 @@ class BenchmarkHandler {
 
         ;
 
-        abstract ExecutorService createExecutor(int maxThreads, String prefix) throws Exception;
+        abstract ExecutorService createExecutor(int maxThreads, String prefix, CpuPinIterator cpus) throws Exception;
 
         boolean shutdownForbidden() {
             return false;

@@ -67,7 +67,7 @@ public class BenchmarkParams extends BenchmarkParamsL4 {
     }
 
     public BenchmarkParams(String benchmark, String generatedTarget, boolean synchIterations,
-                           int threads, int[] threadGroups, Collection<String> threadGroupLabels,
+                           int[] cpus, int threads, int[] threadGroups, Collection<String> threadGroupLabels,
                            int forks, int warmupForks,
                            IterationParams warmup, IterationParams measurement,
                            Mode mode, WorkloadParams params,
@@ -76,7 +76,7 @@ public class BenchmarkParams extends BenchmarkParamsL4 {
                            String jdkVersion, String vmName, String vmVersion, String jmhVersion,
                            TimeValue timeout) {
         super(benchmark, generatedTarget, synchIterations,
-                threads, threadGroups, threadGroupLabels,
+                cpus, threads, threadGroups, threadGroupLabels,
                 forks, warmupForks,
                 warmup, measurement,
                 mode, params,
@@ -92,7 +92,7 @@ abstract class BenchmarkParamsL4 extends BenchmarkParamsL3 {
 
     private int markerEnd;
     public BenchmarkParamsL4(String benchmark, String generatedTarget, boolean synchIterations,
-                             int threads, int[] threadGroups, Collection<String> threadGroupLabels,
+                             int[] cpus, int threads, int[] threadGroups, Collection<String> threadGroupLabels,
                              int forks, int warmupForks,
                              IterationParams warmup, IterationParams measurement,
                              Mode mode, WorkloadParams params,
@@ -101,7 +101,7 @@ abstract class BenchmarkParamsL4 extends BenchmarkParamsL3 {
                              String jdkVersion, String vmName, String vmVersion, String jmhVersion,
                              TimeValue timeout) {
         super(benchmark, generatedTarget, synchIterations,
-                threads, threadGroups, threadGroupLabels,
+                cpus, threads, threadGroups, threadGroupLabels,
                 forks, warmupForks,
                 warmup, measurement,
                 mode, params,
@@ -133,7 +133,7 @@ abstract class BenchmarkParamsL3 extends BenchmarkParamsL2 {
     private boolean q171, q172, q173, q174, q175, q176, q177, q178;
 
     public BenchmarkParamsL3(String benchmark, String generatedTarget, boolean synchIterations,
-                             int threads, int[] threadGroups, Collection<String> threadGroupLabels,
+                             int[] cpus, int threads, int[] threadGroups, Collection<String> threadGroupLabels,
                              int forks, int warmupForks,
                              IterationParams warmup, IterationParams measurement,
                              Mode mode, WorkloadParams params,
@@ -142,7 +142,7 @@ abstract class BenchmarkParamsL3 extends BenchmarkParamsL2 {
                              String jdkVersion, String vmName, String vmVersion, String jmhVersion,
                              TimeValue timeout) {
         super(benchmark, generatedTarget, synchIterations,
-                threads, threadGroups, threadGroupLabels,
+                cpus, threads, threadGroups, threadGroupLabels,
                 forks, warmupForks,
                 warmup, measurement,
                 mode, params,
@@ -182,6 +182,7 @@ abstract class BenchmarkParamsL2 extends BenchmarkParamsL1 implements Serializab
     protected final String benchmark;
     protected final String generatedTarget;
     protected final boolean synchIterations;
+    protected final int[] cpus;
     protected final int threads;
     protected final int[] threadGroups;
     protected final Collection<String> threadGroupLabels;
@@ -202,7 +203,7 @@ abstract class BenchmarkParamsL2 extends BenchmarkParamsL1 implements Serializab
     protected final TimeValue timeout;
 
     public BenchmarkParamsL2(String benchmark, String generatedTarget, boolean synchIterations,
-                             int threads, int[] threadGroups, Collection<String> threadGroupLabels,
+                             int[] cpus, int threads, int[] threadGroups, Collection<String> threadGroupLabels,
                              int forks, int warmupForks,
                              IterationParams warmup, IterationParams measurement,
                              Mode mode, WorkloadParams params,
@@ -213,6 +214,7 @@ abstract class BenchmarkParamsL2 extends BenchmarkParamsL1 implements Serializab
         this.benchmark = benchmark;
         this.generatedTarget = generatedTarget;
         this.synchIterations = synchIterations;
+        this.cpus = cpus;
         this.threads = threads;
         this.threadGroups = threadGroups;
         this.threadGroupLabels = threadGroupLabels;
@@ -259,6 +261,10 @@ abstract class BenchmarkParamsL2 extends BenchmarkParamsL1 implements Serializab
      */
     public IterationParams getMeasurement() {
         return measurement;
+    }
+
+    public int[] getCpus() {
+        return cpus;
     }
 
     /**

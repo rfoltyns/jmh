@@ -31,7 +31,7 @@ questions.
     <parent>
         <groupId>org.openjdk.jmh</groupId>
         <artifactId>jmh-parent</artifactId>
-        <version>1.35</version>
+        <version>1.35-SNAPSHOT</version>
     </parent>
 
     <name>JMH Core</name>
@@ -63,6 +63,11 @@ questions.
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-math3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.openhft</groupId>
+            <artifactId>affinity</artifactId>
+            <version>3.23.3</version>
         </dependency>
     </dependencies>
 

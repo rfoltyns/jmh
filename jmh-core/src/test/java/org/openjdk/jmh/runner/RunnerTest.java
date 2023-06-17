@@ -60,7 +60,7 @@ public class RunnerTest {
     public void testEmptyOptsHaveCompileCommandFile() {
         Runner blade = new Runner(new OptionsBuilder());
         BenchmarkParams bp = new BenchmarkParams("Foo", "bar", false,
-                1, new int[]{1}, Collections.<String>emptyList(),
+                CpuPinIterator.NO_PINS, 1, new int[]{1}, Collections.<String>emptyList(),
                 1, 1,
                 new IterationParams(IterationType.WARMUP,      1, TimeValue.seconds(1), 1),
                 new IterationParams(IterationType.MEASUREMENT, 1, TimeValue.seconds(1), 1),
@@ -92,7 +92,7 @@ public class RunnerTest {
         Set<String> extraHints = CompilerHints.fromFile(tempHints).get();
         Runner blade = new Runner(new OptionsBuilder().build());
         BenchmarkParams bp = new BenchmarkParams("Foo", "bar", false,
-                1, new int[]{1}, Collections.<String>emptyList(),
+                CpuPinIterator.NO_PINS, 1, new int[]{1}, Collections.<String>emptyList(),
                 1, 1,
                 new IterationParams(IterationType.WARMUP,      1, TimeValue.seconds(1), 1),
                 new IterationParams(IterationType.MEASUREMENT, 1, TimeValue.seconds(1), 1),
@@ -128,7 +128,7 @@ public class RunnerTest {
         Set<String> extraHints2 = CompilerHints.fromFile(tempHints2).get();
         Runner blade = new Runner(new OptionsBuilder().build());
         BenchmarkParams bp = new BenchmarkParams("Foo", "bar", false,
-                1, new int[]{1}, Collections.<String>emptyList(),
+                CpuPinIterator.NO_PINS, 1, new int[]{1}, Collections.<String>emptyList(),
                 1, 1,
                 new IterationParams(IterationType.WARMUP,      1, TimeValue.seconds(1), 1),
                 new IterationParams(IterationType.MEASUREMENT, 1, TimeValue.seconds(1), 1),

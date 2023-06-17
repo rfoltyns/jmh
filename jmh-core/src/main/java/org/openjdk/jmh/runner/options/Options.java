@@ -91,6 +91,14 @@ public interface Options extends Serializable {
     Optional<Boolean> shouldFailOnError();
 
     /**
+     * CPU pins to apply
+     * @return cpu ids; no pins if empty
+     * @see org.openjdk.jmh.annotations.CpuPins
+     */
+    Optional<int[]> getCpus();
+
+    /**am = destination.newResource(BenchmarkList.BENCHMARK_LIST.substring(1))) {
+            BenchmarkList.writeB
      * Number of threads to run
      * @return number of threads; 0 to use maximum number of threads
      * @see org.openjdk.jmh.annotations.Threads

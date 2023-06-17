@@ -151,6 +151,7 @@ public class BenchmarkGenerator {
                             info.generatedClassQName,
                             group.getName(),
                             m,
+                            group.getCpus(),
                             group.getTotalThreadCount(),
                             group.getGroupThreads(),
                             group.getGroupLabels(),
@@ -401,7 +402,8 @@ public class BenchmarkGenerator {
 
             group.addStrictFP(clazz.isStrictFP());
             group.addStrictFP(method.isStrictFP());
-            group.addMethod(method, (method.getAnnotation(GroupThreads.class) != null) ? method.getAnnotation(GroupThreads.class).value() : 1);
+            group.addMethod(method, (method.getAnnotation(GroupThreads.class) != null) ? method.getAnnotation(GroupThreads.class).value() : 1,
+                    (method.getAnnotation(CpuPins.class) != null) ? method.getAnnotation(CpuPins.class).value() : new int[0]);
 
             // Discovering @Params, part 1:
             //   For each parameter, walk the type hierarchy up to discover inherited @Param fields in @State objects.

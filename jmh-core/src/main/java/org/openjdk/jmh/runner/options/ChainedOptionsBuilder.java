@@ -144,6 +144,15 @@ public interface ChainedOptionsBuilder {
     ChainedOptionsBuilder shouldFailOnError(boolean value);
 
     /**
+     * CPUS to pin to
+     * @param cpus CPU ids
+     * @return builder
+     * @see org.openjdk.jmh.annotations.Threads
+     * @see org.openjdk.jmh.runner.Defaults#THREADS
+     */
+    ChainedOptionsBuilder cpus(int... cpus);
+
+    /**
      * Number of threads to run the benchmark in
      * @param count number of threads
      * @return builder

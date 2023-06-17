@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.infra.BenchmarkParams;
 import org.openjdk.jmh.infra.IterationParams;
+import org.openjdk.jmh.runner.CpuPinIterator;
 import org.openjdk.jmh.runner.IterationType;
 import org.openjdk.jmh.runner.options.TimeValue;
 import org.openjdk.jmh.util.Utils;
@@ -51,7 +52,7 @@ public class TestAggregateResult {
     public static void setupClass() {
         result = new IterationResult(
                 new BenchmarkParams("blah", "blah", false,
-                        1, new int[]{1}, Collections.<String>emptyList(),
+                        CpuPinIterator.NO_PINS, 1, new int[]{1}, Collections.<String>emptyList(),
                         1, 1,
                         new IterationParams(IterationType.WARMUP, 1, TimeValue.seconds(1), 1),
                         new IterationParams(IterationType.MEASUREMENT, 1, TimeValue.seconds(1), 1),

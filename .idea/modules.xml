@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/jmh-archetypes/jmh-archetypes.iml" filepath="$PROJECT_DIR$/jmh-archetypes/jmh-archetypes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-core/jmh-core.iml" filepath="$PROJECT_DIR$/jmh-core/jmh-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-core-benchmarks/jmh-core-benchmarks.iml" filepath="$PROJECT_DIR$/jmh-core-benchmarks/jmh-core-benchmarks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-core-ct/jmh-core-ct.iml" filepath="$PROJECT_DIR$/jmh-core-ct/jmh-core-ct.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-core-it/jmh-core-it.iml" filepath="$PROJECT_DIR$/jmh-core-it/jmh-core-it.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-generator-annprocess/jmh-generator-annprocess.iml" filepath="$PROJECT_DIR$/jmh-generator-annprocess/jmh-generator-annprocess.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-generator-asm/jmh-generator-asm.iml" filepath="$PROJECT_DIR$/jmh-generator-asm/jmh-generator-asm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-generator-bytecode/jmh-generator-bytecode.iml" filepath="$PROJECT_DIR$/jmh-generator-bytecode/jmh-generator-bytecode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-generator-reflection/jmh-generator-reflection.iml" filepath="$PROJECT_DIR$/jmh-generator-reflection/jmh-generator-reflection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-archetypes/jmh-groovy-benchmark-archetype/jmh-groovy-benchmark-archetype.iml" filepath="$PROJECT_DIR$/jmh-archetypes/jmh-groovy-benchmark-archetype/jmh-groovy-benchmark-archetype.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-archetypes/jmh-java-benchmark-archetype/jmh-java-benchmark-archetype.iml" filepath="$PROJECT_DIR$/jmh-archetypes/jmh-java-benchmark-archetype/jmh-java-benchmark-archetype.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-archetypes/jmh-kotlin-benchmark-archetype/jmh-kotlin-benchmark-archetype.iml" filepath="$PROJECT_DIR$/jmh-archetypes/jmh-kotlin-benchmark-archetype/jmh-kotlin-benchmark-archetype.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-parent.iml" filepath="$PROJECT_DIR$/jmh-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-samples/jmh-samples.iml" filepath="$PROJECT_DIR$/jmh-samples/jmh-samples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmh-archetypes/jmh-scala-benchmark-archetype/jmh-scala-benchmark-archetype.iml" filepath="$PROJECT_DIR$/jmh-archetypes/jmh-scala-benchmark-archetype/jmh-scala-benchmark-archetype.iml" />
+    </modules>
+  </component>
+</project>

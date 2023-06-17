@@ -83,6 +83,11 @@ public class Defaults {
     public static final int THREADS = 1;
 
     /**
+     * CPU ids to pin to
+     */
+    public static final int CPUS = -1;
+
+    /**
      * Number of forks in which we measure the workload.
      */
     public static final int MEASUREMENT_FORKS = 5;

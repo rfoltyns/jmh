@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/jmh-groovy-benchmark-archetype/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/jmh-groovy-benchmark-archetype/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/jmh-java-benchmark-archetype/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/jmh-java-benchmark-archetype/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/jmh-kotlin-benchmark-archetype/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/jmh-kotlin-benchmark-archetype/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/jmh-scala-benchmark-archetype/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/jmh-scala-benchmark-archetype/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-archetypes/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-core-benchmarks/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-core-benchmarks/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-core-ct/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-core-ct/src/test/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-core-it/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-core-it/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-generator-annprocess/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-generator-annprocess/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-generator-asm/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-generator-asm/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-generator-bytecode/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-generator-bytecode/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-generator-reflection/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-generator-reflection/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-samples/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jmh-samples/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

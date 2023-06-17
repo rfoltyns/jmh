@@ -494,7 +494,7 @@ public class Runner extends BaseRunner {
         String vmVersion = targetProperties.getProperty("java.vm.version");
         String vmName = targetProperties.getProperty("java.vm.name");
         return new BenchmarkParams(benchmark.getUsername(), benchmark.generatedTarget(), synchIterations,
-                threads, threadGroups, benchmark.getThreadGroupLabels().orElse(Collections.<String>emptyList()),
+                benchmark.getCpus(), threads, threadGroups, benchmark.getThreadGroupLabels().orElse(Collections.<String>emptyList()),
                 forks, warmupForks,
                 warmup, measurement, benchmark.getMode(), benchmark.getWorkloadParams(), timeUnit, opsPerInvocation,
                 jvm, jvmArgs,
@@ -596,6 +596,8 @@ public class Runner extends BaseRunner {
             server = new BinaryLinkServer(options, out);
 
             server.setPlan(actionPlan);
+
+            out.println("Action plan is: " + actionPlan);
 
             BenchmarkParams params = actionPlan.getMeasurementActions().get(0).getParams();
 

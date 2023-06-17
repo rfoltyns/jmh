@@ -27,10 +27,12 @@ package org.openjdk.jmh.generators.core;
 class MethodInvocation implements Comparable<MethodInvocation> {
     public final MethodInfo method;
     public final int threads;
+    public int[] cpus;
 
-    public MethodInvocation(MethodInfo method, int threads) {
+    public MethodInvocation(MethodInfo method, int threads, int[] cpus) {
         this.method = method;
         this.threads = threads;
+        this.cpus = cpus;
     }
 
     @Override
