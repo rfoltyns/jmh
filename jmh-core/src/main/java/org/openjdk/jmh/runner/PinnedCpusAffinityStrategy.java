@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2014, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2015, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -22,38 +22,21 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package org.openjdk.jmh.generators.core;
+package org.openjdk.jmh.runner;
 
-class MethodInvocation implements Comparable<MethodInvocation> {
-    public final MethodInfo method;
-    public final int threads;
-    public int[] cpus;
+import net.openhft.affinity.AffinityStrategy;
 
-    public MethodInvocation(MethodInfo method, int threads, int[] cpus) {
-        this.method = method;
-        this.threads = threads;
+public class PinnedCpusAffinityStrategy implements AffinityStrategy {
+
+    private final CpuPinIterator cpus;
+
+    public PinnedCpusAffinityStrategy(CpuPinIterator cpus) {
         this.cpus = cpus;
     }
 
     @Override
-    public int compareTo(MethodInvocation o) {
-        return method.getName().compareTo(o.method.getName());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MethodInvocation that = (MethodInvocation) o;
-
-        if (!method.getName().equals(that.method.getName())) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return method.getName().hashCode();
+    public boolean matches(int cpuId, int cpuId2) {
+        final int nextCpuId = cpus.peekNext().getCpuId();
+        return cpuId == cpuId2 && nextCpuId == cpuId;
     }
 }

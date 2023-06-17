@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2014, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2013, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -22,38 +22,27 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package org.openjdk.jmh.generators.core;
+package org.openjdk.jmh.annotations;
 
-class MethodInvocation implements Comparable<MethodInvocation> {
-    public final MethodInfo method;
-    public final int threads;
-    public int[] cpus;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    public MethodInvocation(MethodInfo method, int threads, int[] cpus) {
-        this.method = method;
-        this.threads = threads;
-        this.cpus = cpus;
-    }
+/**
+ * <p>GroupThreads defines how many threads are participating in running
+ * a particular {@link Benchmark} method in the group.</p>
+ *
+ * @see Group
+ */
+@Inherited
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CpuPins {
 
-    @Override
-    public int compareTo(MethodInvocation o) {
-        return method.getName().compareTo(o.method.getName());
-    }
+    /** @return cpu ids of (preferably) isolated CPUs to pin threads to. */
+    int[] value() default {};
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MethodInvocation that = (MethodInvocation) o;
-
-        if (!method.getName().equals(that.method.getName())) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return method.getName().hashCode();
-    }
 }
+

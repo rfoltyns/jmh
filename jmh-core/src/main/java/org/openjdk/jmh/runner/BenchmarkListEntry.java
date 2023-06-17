@@ -42,6 +42,7 @@ public class BenchmarkListEntry implements Comparable<BenchmarkListEntry> {
     private final String generatedClassQName;
     private final String method;
     private final Mode mode;
+    private final int[] cpus;
     private final int[] threadGroups;
     private final Optional<Collection<String>> threadGroupLabels;
     private final Optional<Integer> threads;
@@ -65,7 +66,7 @@ public class BenchmarkListEntry implements Comparable<BenchmarkListEntry> {
     private WorkloadParams workloadParams;
 
     public BenchmarkListEntry(String userClassQName, String generatedClassQName, String method, Mode mode,
-                              Optional<Integer> threads, int[] threadGroups, Optional<Collection<String>> threadGroupLabels,
+                              int[] cpus, Optional<Integer> threads, int[] threadGroups, Optional<Collection<String>> threadGroupLabels,
                               Optional<Integer> warmupIterations, Optional<TimeValue> warmupTime, Optional<Integer> warmupBatchSize,
                               Optional<Integer> measurementIterations, Optional<TimeValue> measurementTime, Optional<Integer> measurementBatchSize,
                               Optional<Integer> forks, Optional<Integer> warmupForks,
@@ -76,6 +77,7 @@ public class BenchmarkListEntry implements Comparable<BenchmarkListEntry> {
         this.generatedClassQName = generatedClassQName;
         this.method = method;
         this.mode = mode;
+        this.cpus = cpus;
         this.threadGroups = threadGroups;
         this.threads = threads;
         this.threadGroupLabels = threadGroupLabels;
@@ -111,6 +113,7 @@ public class BenchmarkListEntry implements Comparable<BenchmarkListEntry> {
         this.generatedClassQName    = reader.nextString();
         this.method                 = reader.nextString();
         this.mode                   = Mode.deepValueOf(reader.nextString());
+        this.cpus                   = reader.nextIntArray();
         this.threads                = reader.nextOptionalInt();
         this.threadGroups           = reader.nextIntArray();
         this.threadGroupLabels      = reader.nextOptionalStringCollection();
@@ -139,6 +142,7 @@ public class BenchmarkListEntry implements Comparable<BenchmarkListEntry> {
         writer.putString(generatedClassQName);
         writer.putString(method);
         writer.putString(mode.toString());
+        writer.putIntArray(cpus);
         writer.putOptionalInt(threads);
         writer.putIntArray(threadGroups);
         writer.putOptionalStringCollection(threadGroupLabels);
@@ -164,7 +168,7 @@ public class BenchmarkListEntry implements Comparable<BenchmarkListEntry> {
 
     public BenchmarkListEntry cloneWith(Mode mode) {
         return new BenchmarkListEntry(userClassQName, generatedClassQName, method, mode,
-                threads, threadGroups, threadGroupLabels,
+                cpus, threads, threadGroups, threadGroupLabels,
                 warmupIterations, warmupTime, warmupBatchSize,
                 measurementIterations, measurementTime, measurementBatchSize,
                 forks, warmupForks,
@@ -175,7 +179,7 @@ public class BenchmarkListEntry implements Comparable<BenchmarkListEntry> {
 
     public BenchmarkListEntry cloneWith(WorkloadParams p) {
         BenchmarkListEntry br = new BenchmarkListEntry(userClassQName, generatedClassQName, method, mode,
-                threads, threadGroups, threadGroupLabels,
+                cpus, threads, threadGroups, threadGroupLabels,
                 warmupIterations, warmupTime, warmupBatchSize,
                 measurementIterations, measurementTime, measurementBatchSize,
                 forks, warmupForks,
@@ -247,6 +251,10 @@ public class BenchmarkListEntry implements Comparable<BenchmarkListEntry> {
 
     public Mode getMode() {
         return mode;
+    }
+
+    public int[] getCpus() {
+        return cpus;
     }
 
     public int[] getThreadGroups() {

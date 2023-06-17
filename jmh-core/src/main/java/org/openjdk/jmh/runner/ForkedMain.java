@@ -36,6 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Main program entry point for forked JVM instance
+ * Run with -Djmh.pinned=true to pin runner thread isolated CPU
  */
 class ForkedMain {
 
@@ -83,6 +84,7 @@ class ForkedMain {
 
                 // run!
                 ForkedRunner runner = new ForkedRunner(options, link);
+
                 runner.run();
 
                 gracefullyFinished = true;

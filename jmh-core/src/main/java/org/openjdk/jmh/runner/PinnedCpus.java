@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2014, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -22,38 +22,42 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package org.openjdk.jmh.generators.core;
+package org.openjdk.jmh.runner;
 
-class MethodInvocation implements Comparable<MethodInvocation> {
-    public final MethodInfo method;
-    public final int threads;
-    public int[] cpus;
+public class PinnedCpus {
 
-    public MethodInvocation(MethodInfo method, int threads, int[] cpus) {
-        this.method = method;
-        this.threads = threads;
-        this.cpus = cpus;
+    private final int[] cpuIds;
+    private final CpuPinIterator iterator;
+
+    public PinnedCpus(final int[] cpuIds) {
+        this.cpuIds = cpuIds;
+        this.iterator = new CpuPinIterator(cpuIds);
     }
 
-    @Override
-    public int compareTo(MethodInvocation o) {
-        return method.getName().compareTo(o.method.getName());
+    public static PinnedCpus from(final int[] cpus) {
+        return new PinnedCpus(cpus);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public CpuPin next() {
 
-        MethodInvocation that = (MethodInvocation) o;
+        if (iterator.hasNext()) {
+            return iterator.next();
+        }
 
-        if (!method.getName().equals(that.method.getName())) return false;
+        return CpuPin.NOOP;
 
-        return true;
     }
 
-    @Override
-    public int hashCode() {
-        return method.getName().hashCode();
+    public CpuPin current() {
+        return iterator.current();
+    }
+
+
+    public CpuPin peekNext() {
+        return iterator.peekNext();
+    }
+
+    public boolean hasPinnedCpus() {
+        return cpuIds.length > 0;
     }
 }

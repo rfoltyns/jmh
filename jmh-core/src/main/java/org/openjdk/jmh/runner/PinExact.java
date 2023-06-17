@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2014, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -22,38 +22,41 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package org.openjdk.jmh.generators.core;
+package org.openjdk.jmh.runner;
 
-class MethodInvocation implements Comparable<MethodInvocation> {
-    public final MethodInfo method;
-    public final int threads;
-    public int[] cpus;
+import net.openhft.affinity.AffinityLock;
 
-    public MethodInvocation(MethodInfo method, int threads, int[] cpus) {
-        this.method = method;
-        this.threads = threads;
-        this.cpus = cpus;
+class PinExact implements CpuPin {
+
+    private volatile AffinityLock al;
+    private final int next;
+
+    public PinExact(final int next) {
+        this.next = next;
     }
 
     @Override
-    public int compareTo(MethodInvocation o) {
-        return method.getName().compareTo(o.method.getName());
-    }
+    public boolean pin() {
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (al == null) {
+            al = AffinityLock.acquireLock(next);
+        }
 
-        MethodInvocation that = (MethodInvocation) o;
-
-        if (!method.getName().equals(that.method.getName())) return false;
-
+        if (!al.isBound()) {
+            throw new IllegalStateException("Should pin to " + next);
+        }
         return true;
+
     }
 
     @Override
-    public int hashCode() {
-        return method.getName().hashCode();
+    public void unPin() {
+//            al.release();
+//            al = null;
+    }
+
+    @Override
+    public int getCpuId() {
+        return next;
     }
 }

@@ -28,6 +28,7 @@ import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.profile.Profiler;
 import org.openjdk.jmh.results.format.ResultFormatType;
+import org.openjdk.jmh.runner.CpuPinIterator;
 import org.openjdk.jmh.util.HashMultimap;
 import org.openjdk.jmh.util.Multimap;
 import org.openjdk.jmh.util.Optional;
@@ -285,6 +286,30 @@ public class OptionsBuilder implements Options, ChainedOptionsBuilder {
             return threads.orAnother(otherOptions.getThreads());
         } else {
             return threads;
+        }
+    }
+
+    // ---------------------------------------------------------------------------
+
+    private Optional<int[]> cpus = Optional.of(CpuPinIterator.NO_PINS);
+
+    @Override
+    public ChainedOptionsBuilder cpus(int... cpus) {
+        if (cpus != null) {
+            for (int i = 0; i < cpus.length; i++) {
+                checkGreaterOrEqual(cpus[i], 0, "CpuId #" + i + " invalid");
+            }
+        }
+        this.cpus = Optional.of(cpus);
+        return this;
+    }
+
+    @Override
+    public Optional<int[]> getCpus() {
+        if (otherOptions != null) {
+            return cpus.orAnother(otherOptions.getCpus());
+        } else {
+            return cpus;
         }
     }
 

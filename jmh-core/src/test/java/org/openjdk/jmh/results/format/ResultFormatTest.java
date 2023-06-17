@@ -30,6 +30,8 @@ import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.infra.BenchmarkParams;
 import org.openjdk.jmh.infra.IterationParams;
 import org.openjdk.jmh.results.*;
+import org.openjdk.jmh.runner.CpuPinIterator;
+import org.openjdk.jmh.runner.PinnedCpus;
 import org.openjdk.jmh.runner.IterationType;
 import org.openjdk.jmh.runner.WorkloadParams;
 import org.openjdk.jmh.runner.options.TimeValue;
@@ -78,6 +80,7 @@ public class ResultFormatTest {
                     "benchmark_" + b,
                     JSONResultFormat.class.getName() + ".benchmark_" + b + "_" + Mode.Throughput,
                     false,
+                    CpuPinIterator.NO_PINS,
                     r.nextInt(1000),
                     new int[]{ r.nextInt(1000) },
                     Collections.<String>emptyList(),

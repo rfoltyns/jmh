@@ -25,6 +25,7 @@
 package org.openjdk.jmh.generators.core;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.runner.CpuPinIterator;
 import org.openjdk.jmh.runner.options.TimeValue;
 import org.openjdk.jmh.util.Optional;
 
@@ -70,8 +71,8 @@ class MethodGroup implements Comparable<MethodGroup> {
         return name.compareTo(o.name);
     }
 
-    public void addMethod(MethodInfo method, int threads) {
-        MethodInvocation mi = new MethodInvocation(method, threads);
+    public void addMethod(MethodInfo method, int threads, int[] cpus) {
+        MethodInvocation mi = new MethodInvocation(method, threads, cpus);
         if (!methods.add(mi)) {
             throw new GenerationException(
                     "Duplicate @" + Benchmark.class.getSimpleName() + " method name: " +
@@ -123,6 +124,18 @@ class MethodGroup implements Comparable<MethodGroup> {
 
     public Set<Mode> getModes() {
         return modes;
+    }
+
+    public int[] getCpus() {
+
+        final Collection<CpuPins> all = getAll(CpuPins.class);
+        for (CpuPins ann : all) {
+            System.out.println("CpuPins: " + all);
+            if (ann.value().length > 0) {
+                return ann.value();
+            }
+        }
+        return CpuPinIterator.NO_PINS;
     }
 
     public int[] getGroupThreads() {
